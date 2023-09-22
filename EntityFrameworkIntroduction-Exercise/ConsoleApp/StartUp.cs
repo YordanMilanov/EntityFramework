@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using System.Xml;
 using SoftUni.Data;
 using SoftUni.Models;
@@ -9,11 +10,11 @@ namespace SoftUni;
 
 public class StartUp
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
         SoftUniContext dbContext = new SoftUniContext();
 
-        string result = AddNewAddressToEmployee(dbContext);
+        string result = GetEmployeesInPeriod(dbContext);
         Console.WriteLine(result);
     }
 
@@ -116,5 +117,42 @@ public class StartUp
             .ToArray();
 
       return String.Join(Environment.NewLine, employeeAddresses);
+    }
+
+    //problem 7
+    public static string GetEmployeesInPeriod(SoftUniContext context)
+    {
+        StringBuilder sb = new StringBuilder();
+        var employeesWithProjects = context.Employees
+            .Where(e => e.EmployeesProjects
+            .Any(ep => ep.Project.StartDate.Year >= 2001 &&
+                       ep.Project.StartDate.Year <= 2003))
+            .Take(10)
+            .Select(e => new
+            {
+                e.FirstName,
+                e.LastName,
+                ManagerFirstName = e.Manager!.FirstName,
+                ManagerLastName = e.Manager!.LastName,
+                Projects = e.EmployeesProjects
+                    .Select(e => new
+                    {
+                        ProjectName = e.Project.Name,
+                        StartDate = e.Project.StartDate.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                        EndDate = e.Project.EndDate.HasValue ? e.Project.EndDate.Value.ToString("M/d/yyyy h:mm:ss tt",CultureInfo.InvariantCulture) : "not finished",
+                    })
+                    .ToArray()
+            })
+            .ToArray();
+
+        foreach (var e in employeesWithProjects)
+        {
+            sb.AppendLine($"{e.FirstName} {e.LastName} - Manager: {e.ManagerFirstName} {e.ManagerLastName}");
+            foreach (var p in e.Projects) 
+            {
+                sb.AppendLine($"--{p.ProjectName} - {p.StartDate} - {p.EndDate}");
+            }
+        }
+        return sb.ToString().TrimEnd();
     }
 }
