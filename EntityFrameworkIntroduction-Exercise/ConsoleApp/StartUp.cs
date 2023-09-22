@@ -10,11 +10,13 @@ namespace SoftUni;
 
 public class StartUp
 {
+    private static IQueryable<EmployeeProject> epToDelete;
+
     public static void Main(string[] args)
     {
         SoftUniContext dbContext = new SoftUniContext();
 
-        string result = GetEmployeesInPeriod(dbContext);
+        string result = DeleteProjectById(dbContext);
         Console.WriteLine(result);
     }
 
@@ -154,5 +156,32 @@ public class StartUp
             }
         }
         return sb.ToString().TrimEnd();
+    }
+
+    //problem 14
+    public static string DeleteProjectById(SoftUniContext context)
+    {
+        // Check if the project exists
+        Project projectToDelete = context.Projects.Find(1)!;
+
+        if (projectToDelete != null)
+        {
+            // Delete all rows from employeeProject that refer to the project with the selected Id
+            IQueryable<EmployeeProject> epToDelete = context.EmployeeProjects
+                .Where(ep => ep.ProjectId == 2);
+            context.EmployeeProjects.RemoveRange(epToDelete);
+
+            // Remove the project
+            context.Projects.Remove(projectToDelete);
+            context.SaveChanges();
+
+        }
+        // Return the names of the top 10 projects
+        string[] projectNames = context.Projects
+            .Take(10)
+            .Select(p => p.Name)
+            .ToArray();
+
+        return string.Join(Environment.NewLine, projectNames);
     }
 }
