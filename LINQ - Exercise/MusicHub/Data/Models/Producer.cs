@@ -3,8 +3,14 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace MusicHub.Data.Models;
 
-internal class Producer
+public class Producer
 {
+
+    public Producer() 
+    {
+        this.Albums = new HashSet<Album>();
+    }
+
     [Key]
     public int Id { get; set; }
 
@@ -18,4 +24,6 @@ internal class Producer
 
     [AllowNull]
     public string? PhoneNumer { get; set; }
+
+    public virtual ICollection<Album> Albums { get; set; }
 }

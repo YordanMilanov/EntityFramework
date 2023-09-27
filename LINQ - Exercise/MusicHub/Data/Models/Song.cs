@@ -7,6 +7,12 @@ namespace MusicHub.Data.Models;
 
 public class Song
 {
+
+    public Song()
+    {
+        this.SongPerformers = new HashSet<SongPerformer>();
+    }
+
     [Key]
     public int Id { get; set; }
 
@@ -41,5 +47,7 @@ public class Song
 
     [Required]
     public decimal Price { get; set; } //by default required
+
+    public virtual ICollection<SongPerformer> SongPerformers { get; set; }
 
 }
