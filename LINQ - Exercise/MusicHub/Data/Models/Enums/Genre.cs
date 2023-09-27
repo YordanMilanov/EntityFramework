@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace MusicHub.Data.Models.Enums
 {
-    internal class Genre
+    public enum Genre
     {
+        Blues,
+        Rap,
+        PopMusic,
+        Rock,
+        Jazz
     }
 }

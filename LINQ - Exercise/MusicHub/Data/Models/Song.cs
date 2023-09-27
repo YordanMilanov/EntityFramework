@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using MusicHub.Data.Models.Enums;
 
@@ -25,10 +26,18 @@ public class Song
     public Genre Genre { get; set; } //Enumrations are storade as INT in DB
 
     [AllowNull]
+    [ForeignKey(nameof(Album))]
     public int? AlbumId { get; set; }
 
+    [AllowNull]
+    public virtual Album? Album { get; set; }
+
     [Required]
+    [ForeignKey(nameof(Writer))]
     public int WriterId { get; set; } // by default required
+
+    [Required]
+    public virtual Writer Writer { get; set; } = null!;
 
     [Required]
     public decimal Price { get; set; } //by default required

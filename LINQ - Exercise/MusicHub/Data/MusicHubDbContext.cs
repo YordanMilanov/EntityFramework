@@ -1,6 +1,7 @@
 ﻿namespace MusicHub.Data
 {
     using Microsoft.EntityFrameworkCore;
+    using MusicHub.Data.Models;
 
     public class MusicHubDbContext : DbContext
     {
@@ -24,7 +25,25 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Song>(entity =>
+            {
+                entity
+                .Property(s => s.CreatedOn)
+                .HasColumnType("date");
+            });
 
+            builder.Entity<Album>(entity =>
+            {
+                entity
+                .Property(a => a.ReleaseDate)
+                .HasColumnType("date");
+            });
+
+            //Composite PK of SongPerformer
+            builder.Entity<SongPerformer>(entity =>
+            {
+                entity.HasKey(pk => new { pk.PerformerId, pk.SongId });
+            });
         }
     }
 }
