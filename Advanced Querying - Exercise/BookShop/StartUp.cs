@@ -17,8 +17,8 @@
             using var dbContext = new BookShopContext();
             //DbInitializer.ResetDatabase(db);
 
-            string result = GetMostRecentBooks(dbContext);
-            Console.WriteLine(result);
+          int removedBooks = RemoveBooks(dbContext);
+            Console.WriteLine(removedBooks);
         }
 
         //Problem 02: 100
@@ -234,7 +234,7 @@
             return sb.ToString().TrimEnd();
         }
 
-        //Problem 14:
+        //Problem 14: 100
         public static string GetMostRecentBooks(BookShopContext dbContext)
         {
             StringBuilder sb = new StringBuilder();
@@ -264,6 +264,51 @@
             }
 
             return sb.ToString().TrimEnd();
+        }
+
+        //Problem 15 - Without Bulk update
+        public static void IncreasePrices(BookShopContext dbContext)
+        {
+            Book[] booksRealeasedBefore2010 = dbContext.Books
+                .Where(b => b.ReleaseDate.HasValue && b.ReleaseDate.Value.Year < 2010)
+                .ToArray(); //Materializing the query does not detach th eentities from the changeTracker
+
+            foreach (var book in booksRealeasedBefore2010)
+            {
+                book.Price += 5;
+            }
+
+            dbContext.SaveChanges();
+        }
+
+        //Problem 15 - With Bulk update
+        public static void BulkIncreasePrices(BookShopContext dbContext)
+        {
+            Book[] booksRealeasedBefore2010 = dbContext.Books
+                .Where(b => b.ReleaseDate.HasValue && b.ReleaseDate.Value.Year < 2010)
+                .ToArray(); //Materializing the query does not detach th eentities from the changeTracker
+
+            foreach (var book in booksRealeasedBefore2010)
+            {
+                book.Price += 5;
+            }
+
+            dbContext.BulkUpdate(booksRealeasedBefore2010);
+        }
+
+        //Problem 16 - Delete
+        public static int RemoveBooks(BookShopContext dbContext) {
+            Book[] removedBooksCount = dbContext.Books
+                .Where(b => b.Copies < 4200).ToArray();
+
+            int count = 0;
+            foreach (var book in removedBooksCount)
+            {
+                dbContext.Books.Remove(book);
+                count++;
+            }
+
+            return count;
         }
     }
 }
