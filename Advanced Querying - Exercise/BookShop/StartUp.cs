@@ -17,7 +17,7 @@
             using var dbContext = new BookShopContext();
             //DbInitializer.ResetDatabase(db);
 
-            string result = GetBooksByAuthor(dbContext, "po");
+            string result = GetMostRecentBooks(dbContext);
             Console.WriteLine(result);
         }
 
@@ -178,6 +178,92 @@
                 
                 
                 return string.Join(Environment.NewLine, books);
+        }
+
+        //Problem 11: 100 +
+        public static string CountBooks(BookShopContext dbContext, int lengthCheck)
+        {
+            int count = dbContext.Books
+                .Where(b => b.Title.Length > lengthCheck)
+                .Count();
+
+            return $"There are {count} books with longer title than {lengthCheck} symbols";
+        }
+
+        //Problem 12: 100
+        public static string CountCopiesByAuthor(BookShopContext dbContext)
+        {
+            StringBuilder sb = new StringBuilder();
+            var AuthorWithBookCopies = dbContext.Authors
+                .Select(a => new
+                {
+                    FullName = a.FirstName + " " + a.LastName,
+                    TotalCopies = a.Books.Sum(b => b.Copies)
+                } 
+                )
+                .OrderByDescending(b => b.TotalCopies)
+                .ToArray();
+
+            foreach (var a in AuthorWithBookCopies)
+            {
+                sb.AppendLine($"{a.FullName} - {a.TotalCopies}");
+            }
+
+            return sb.ToString();
+        }
+
+        //Problem 13: 100
+        public static string GetTotalProfitByCategory(BookShopContext dbContext)
+        {
+            StringBuilder sb = new StringBuilder();
+            var TotalProfitByCategory = dbContext.Categories
+                .Select(c => new
+                {
+                   CategoryName = c.Name,
+                   TotalProfit = c.CategoryBooks
+                                    .Sum(cb => cb.Book.Copies * cb.Book.Price)
+                })
+                .OrderByDescending(c => c.TotalProfit)
+                .ThenBy(c => c.CategoryName)
+                .ToArray();
+
+            foreach (var a in TotalProfitByCategory)
+            {
+                sb.AppendLine($"{a.CategoryName} ${a.TotalProfit:f2}");
+            }
+            return sb.ToString().TrimEnd();
+        }
+
+        //Problem 14:
+        public static string GetMostRecentBooks(BookShopContext dbContext)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var mostRecentBooksByCategory = dbContext.Categories
+                .OrderBy(c => c.Name)
+                .Select(c => new
+                {
+                    CategoryName = c.Name,
+                    MostRecentBooks = c.CategoryBooks.
+                        OrderByDescending(cb => cb.Book.ReleaseDate)
+                        .Take(3)
+                        .Select(cb => new
+                        {
+                            BookTitle = cb.Book.Title,
+                            ReleaseYear = cb.Book.ReleaseDate.Value.Year
+                        }).ToArray()
+                })
+                .ToArray();
+            foreach (var category in mostRecentBooksByCategory)
+            {
+                sb.AppendLine($"--{category.CategoryName}");
+                foreach (var book in category.MostRecentBooks)
+                {
+                    sb.AppendLine($"{book.BookTitle} ({book.ReleaseYear})");
+                }
+            }
+
+            return sb.ToString().TrimEnd();
         }
     }
 }
