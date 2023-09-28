@@ -1,10 +1,14 @@
 ﻿namespace BookShop
 {
     using System.Collections;
+    using System.Globalization;
+    using System.Text;
     using BookShop.Models;
     using BookShop.Models.Enums;
+    using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
     using Data;
     using Initializer;
+    using Microsoft.EntityFrameworkCore;
 
     public class StartUp
     {
@@ -13,7 +17,7 @@
             using var dbContext = new BookShopContext();
             //DbInitializer.ResetDatabase(db);
 
-            string result = GetBooksByCategory(dbContext, "horror mystery drama");
+            string result = GetBooksByAuthor(dbContext, "po");
             Console.WriteLine(result);
         }
 
@@ -87,7 +91,7 @@
             return string.Join(Environment.NewLine, bookTitles);
         }
 
-        //Problem 06:
+        //Problem 06: 100
         public static string GetBooksByCategory(BookShopContext dbContext, string input)
         {
             string[] categories = input.Split(' ', StringSplitOptions.RemoveEmptyEntries)
@@ -102,6 +106,78 @@
                 .ToArray();
 
             return string.Join(Environment.NewLine, bookTitles);
+        }
+
+        //Problem 07: 100 +
+        public static string GetBooksReleasedBefore(BookShopContext dbContext, string date)
+        {
+            string format = "dd-MM-yyyy";
+            DateTime dateTime;
+            if (DateTime.TryParseExact(date, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime))
+            {
+                var Books = dbContext.Books
+                    .Where(b => b.ReleaseDate < dateTime)
+                    .Select(b => new
+                    {
+                        b.Title,
+                        b.EditionType,
+                        b.Price,
+                        b.ReleaseDate
+                    })
+                    .OrderByDescending(b => b.ReleaseDate)
+
+                    .ToArray();
+
+                StringBuilder sb = new StringBuilder();
+                foreach (var b in Books)
+                {
+                    sb.AppendLine($"{b.Title} - {b.EditionType} - ${b.Price:f2}");
+                }
+
+                return sb.ToString();
+            }
+            else
+            {
+               return "Invalid date format";
+            }
+        }
+
+        //Problem 08: 100 +
+        public static string GetAuthorNamesEndingIn(BookShopContext dbContext, string input)
+        {
+            string[] authors = dbContext.Authors
+                .Where(a => a.FirstName.EndsWith(input))
+                .OrderBy(a => a.FirstName)
+                .ThenBy(a => a.LastName)
+                .Select(a => $"{a.FirstName} {a.LastName}")
+                .ToArray();
+
+            return string.Join(Environment.NewLine, authors);
+        }
+
+        //Problem 09: 100 +
+        public static string GetBookTitlesContaining(BookShopContext dbContext, string input) 
+        {
+            string[] bookTitles = dbContext.Books
+                .Where(b => b.Title.ToLower().Contains(input.ToLower()))
+                .OrderBy(b => b.Title)
+                .Select(b => b.Title)
+                .ToArray();
+
+            return string.Join(Environment.NewLine, bookTitles);
+        }
+
+        //Problem 10: 100 +
+        public static string GetBooksByAuthor(BookShopContext dbContext, string input)
+        {
+            string[] books = dbContext.Books
+                .Where(b => b.Author.LastName.ToLower().StartsWith(input.ToLower()))
+                .OrderBy(b => b.BookId)
+                .Select(b => $"{b.Title} (${b.Author.FirstName} {b.Author.LastName})")
+                .ToArray();
+                
+                
+                return string.Join(Environment.NewLine, books);
         }
     }
 }
