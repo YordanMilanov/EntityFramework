@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "rkbUvfj8ccfNaJrEGezxRdYxGoy9I9aEjuMccZ7V9GAGFXQFAPD9wIz8T9KvqNoRWFmTwEy7BBNylYzsxzlqGg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\danch\\source\\EntityFramework\\AutoMapping - Exercise\\FastFood.Services.Mapping\\FastFood.Services.Mapping.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\danch\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\danch\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

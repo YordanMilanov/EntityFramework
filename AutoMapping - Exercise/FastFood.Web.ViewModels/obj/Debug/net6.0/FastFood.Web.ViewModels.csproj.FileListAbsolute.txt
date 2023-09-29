@@ -1,0 +1,15 @@
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\bin\Debug\net6.0\FastFood.Web.ViewModels.deps.json
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\bin\Debug\net6.0\FastFood.Web.ViewModels.dll
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\bin\Debug\net6.0\FastFood.Web.ViewModels.pdb
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\FastFood.Web.ViewModels.csproj.AssemblyReference.cache
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\FastFood.Web.ViewModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\FastFood.Web.ViewModels.AssemblyInfoInputs.cache
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\FastFood.Web.ViewModels.AssemblyInfo.cs
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\FastFood.Web.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\FastFood.Web.ViewModels.dll
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\refint\FastFood.Web.ViewModels.dll
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\FastFood.Web.ViewModels.pdb
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\ref\FastFood.Web.ViewModels.dll
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\bin\Debug\net6.0\FastFood.Common.dll
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\bin\Debug\net6.0\FastFood.Common.pdb
+C:\Users\danch\source\EntityFramework\AutoMapping - Exercise\FastFood.Web.ViewModels\obj\Debug\net6.0\FastFood.Web.ViewModels.csproj.CopyComplete
