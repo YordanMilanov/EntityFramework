@@ -15,10 +15,7 @@
         public static void Main()
         {
             using var dbContext = new BookShopContext();
-            //DbInitializer.ResetDatabase(db);
-
-          int removedBooks = RemoveBooks(dbContext);
-            Console.WriteLine(removedBooks);
+            DbInitializer.ResetDatabase(db);
         }
 
         //Problem 02: 100
@@ -266,7 +263,7 @@
             return sb.ToString().TrimEnd();
         }
 
-        //Problem 15 - Without Bulk update
+        //Problem 15 - Without Bulk update 100
         public static void IncreasePrices(BookShopContext dbContext)
         {
             Book[] booksRealeasedBefore2010 = dbContext.Books
@@ -281,7 +278,7 @@
             dbContext.SaveChanges();
         }
 
-        //Problem 15 - With Bulk update
+        //Problem 15 - With Bulk update 100
         public static void BulkIncreasePrices(BookShopContext dbContext)
         {
             Book[] booksRealeasedBefore2010 = dbContext.Books
@@ -296,7 +293,7 @@
             dbContext.BulkUpdate(booksRealeasedBefore2010);
         }
 
-        //Problem 16 - Delete
+        //Problem 16 - Delete 100
         public static int RemoveBooks(BookShopContext dbContext) {
             Book[] removedBooksCount = dbContext.Books
                 .Where(b => b.Copies < 4200).ToArray();
