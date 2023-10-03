@@ -51,7 +51,7 @@ namespace ForumApp.Controllers
         {
             try
             {
-                PostAddFormModel postModel = await this.postService.GetForEditByIdAsync(id.ToString());
+                PostAddFormModel postModel = await this.postService.GetPostById(id.ToString());
 
                 return View(postModel);
             }
@@ -80,6 +80,19 @@ namespace ForumApp.Controllers
             }
 
             return RedirectToAction("All", "Post");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete (string id)
+        {
+            try
+            {
+                await this.postService.DeleteByIdAsync(id);
+            }
+            catch (Exception)
+            {
+            }
+            return this.RedirectToAction("All", "Post");
         }
     }
 }
