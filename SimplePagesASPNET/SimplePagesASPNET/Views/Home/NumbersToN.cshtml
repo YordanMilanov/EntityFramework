@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["TItle"] = "Numbers 1...N";
+}
+
+@if((int)ViewData["Count"] > 0) {
+    <h2>Nums 1...@ViewData["Count"]</h2>
+    <ul>
+        @for(int i = 1; i <= (int)ViewData["count"]; i++) {
+            <li class="list-group-item">@i</li>
+        }
+    </ul>
+}else {
+    <h2>Nums 1...N</h2>
+}
+
+<form 
+      asp-controller="Home"
+      asp-action="NumbersToN"
+      method="post">
+ 
+      <div class="col">
+          <input type="number" 
+              min="0" 
+              step="1" 
+              name="count"/>
+              @* name="count" reference to the count attribute in ViewData dictionary *@
+      </div>
+
+      <div>
+          <button class="btn btn-primary">Submit</button>
+      </div>
+  </form>

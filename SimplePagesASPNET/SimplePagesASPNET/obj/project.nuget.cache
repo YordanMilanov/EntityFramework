@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "jkj1ovkZcq+7wRjIiZhPuj4xN+pFnLGLuesHr044oM6LeXVncxoFDCs4lnm5107/WPSvP0MtbzYKiR8EZHAKuA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\danch\\source\\EntityFramework\\SimplePagesASPNET\\SimplePagesASPNET\\SimplePagesASPNET.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\danch\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

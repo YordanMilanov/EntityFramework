@@ -1,0 +1,16 @@
+﻿@using SimplePagesASPNET.ViewModels.Product;
+@model ProductViewModel;
+
+@{
+    ViewData["Title"] = "Product";
+}
+
+    <div class="card">
+    <div class="card-header"> @ViewData["Title"]</div>
+    <div class="card-body">
+        <h5>Product name: @Model.Name</h5>
+        <p class="card-text">Price: @Model.Price$</p>
+    </div>
+    </div>
+
+   
