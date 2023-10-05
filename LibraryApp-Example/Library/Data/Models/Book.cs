@@ -41,7 +41,7 @@ namespace Library.Data.Models
         //• Has Rating – a decimal with min value 0.00 and max value 10.00 (required)
         //• Has CategoryId – an integer, foreign key(required)
         //    • Has Category – a Category(required)
-        //    • Has UsersBooks – a collection of type IdentityUserBook
+        //    • Has UsersBooks – a collection of type IdentityUserBooks
 
     }
 }

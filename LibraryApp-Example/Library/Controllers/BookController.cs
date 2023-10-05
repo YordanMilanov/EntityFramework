@@ -1,12 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Library.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
     public class BookController : BaseController
     {
-        public IActionResult All()
+        private readonly IBookService bookService;
+
+        public BookController(IBookService bookService)
         {
-            return View();
+            this.bookService = bookService;
+        }
+        public async Task<IActionResult> All()
+        {
+            var model = await bookService.GetAllBooksAsync();
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Mine()
+        {
+            var model = await bookService.GetMyBooksAsync(GetUserId());
+            return View(model);
+        }
+
+        public async Task<IActionResult> AddToCollection(int id)
+        {
+            var book = await bookService.GetBookByIdAsync(id);
+            if (book == null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            var userId = GetUserId();
+
+
+                await bookService.AddBookToCollectionAsync(userId, book);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }
