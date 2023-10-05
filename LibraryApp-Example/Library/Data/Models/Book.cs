@@ -37,7 +37,7 @@ namespace Library.Data.Models
         //• Has Title – a string with min length 10 and max length 50 (required)
         //• Has Author – a string with min length 5 and max length 50 (required)
         //• Has Description – a string with min length 5 and max length 5000 (required)
-        //• Has ImageUrl – a string (required)
+        //• Has Url – a string (required)
         //• Has Rating – a decimal with min value 0.00 and max value 10.00 (required)
         //• Has CategoryId – an integer, foreign key(required)
         //    • Has Category – a Category(required)

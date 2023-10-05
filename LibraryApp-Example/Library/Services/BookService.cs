@@ -15,6 +15,22 @@ namespace Library.Services
             this.dbContext = dbContext;
         }
 
+        async Task IBookService.AddBookAsync(AddBookViewModel model)
+        {
+            Book book = new Book
+            {
+                Title = model.Title,
+                Author = model.Author,
+                ImageUrl = model.Url,
+                Description = model.Description,
+                CategoryId = model.CategoryId,
+                Rating = decimal.Parse(model.Rating)
+            };
+
+            await dbContext.Books.AddAsync(book);
+            await dbContext.SaveChangesAsync();
+        }
+
         async Task IBookService.AddBookToCollectionAsync(string userId, BookViewModel book)
         {
             bool alreadyAdded = await dbContext.IdentityUserBooks
@@ -79,6 +95,22 @@ namespace Library.Services
                    Category = b.Book.category.Name
                })
                .ToListAsync();
+        }
+
+        async Task<AddBookViewModel> IBookService.GetNewAddBookModelAsync()
+        {
+           var categories = await dbContext.Categories
+               .Select(c => new CategoryViewModel
+               {
+                   Id = c.Id,
+                   Name = c.Name
+               }).ToListAsync();
+
+           var model = new AddBookViewModel
+           {
+               Categories = categories
+           };
+           return model;
         }
 
         async Task IBookService.RemoveBookFromCollectionAsync(string userId, BookViewModel book)
