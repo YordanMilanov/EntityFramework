@@ -80,5 +80,25 @@ namespace Library.Services
                })
                .ToListAsync();
         }
+
+        async Task IBookService.RemoveBookFromCollectionAsync(string userId, BookViewModel book)
+        {
+            //check if the book is already added in the user booklist
+            bool alreadyAdded = await dbContext.IdentityUserBooks
+                .AnyAsync(ub => ub.CollectorId == userId && ub.BookId == book.Id);
+
+            //if it is added -> removing it
+            if (alreadyAdded)
+            {
+                //find the book
+                var userBook = await dbContext.IdentityUserBooks
+                    .FirstOrDefaultAsync(ub => ub.CollectorId == userId && ub.BookId == book.Id);
+                //mark it as removed
+                dbContext.IdentityUserBooks.Remove(userBook);
+
+                //persist changes to the db
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 }
