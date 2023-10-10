@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SimplePagesASPNET")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce4e5b75f3cc0dfe54a39b61261aaacc3171101d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("SimplePagesASPNET")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SimplePagesASPNET")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
